@@ -1,0 +1,27 @@
+<Project DefaultTargets="Build">
+
+    <Import Project="Directory.Build.props" />
+
+    <ItemGroup>
+        <TestProjects Include="$(SolutionRoot)\**\*Tests.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <DeliveryProjects Include="$(SolutionRoot)\**\App*.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectsToBuild Include="@(DeliveryProjects)" />
+        <ProjectsToBuild Include="@(TestProjects)" />
+    </ItemGroup>
+
+    <Target Name="Build">
+        <Message Importance="High" Text="Project found %(ProjectsToBuild.FullPath)" />
+    </Target>
+
+    <Target Name="Restore" BeforeTargets="Build" >
+        <Message Importance="High" Text="Restoring projects" />
+
+        <MSBuild Projects="@(ProjectsToBuild)" Targets="Restore" />
+    </Target>
+</Project>

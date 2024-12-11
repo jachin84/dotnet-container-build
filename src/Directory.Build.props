@@ -6,8 +6,9 @@
 
     <!-- Common Solution Properties -->
     <PropertyGroup>
-        <RepoRoot>$([System.IO.Path]::GetDirectoryName($([MSBuild]::GetPathOfFileAbove('README.md'','$(MSBuildThisFileDirectory)'))))</RepoRoot>
+        <RepoRoot>$([System.IO.Path]::GetDirectoryName($([MSBuild]::GetPathOfFileAbove('README.md','$(MSBuildThisFileDirectory)'))))</RepoRoot>
         <BaseArtifactsPath>$(RepoRoot)\artifacts</BaseArtifactsPath>
+        <SolutionRoot>$(RepoRoot)\src</SolutionRoot>
     </PropertyGroup>
 
     <!-- Detect if this is a CI Build -->
