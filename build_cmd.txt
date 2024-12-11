@@ -1,0 +1,6 @@
+
+#cleanup bin/obj
+Get-ChildItem -Recurse -Include Bin,Obj | Remove-Item -Force -Recurse
+
+# Restore
+dotnet restore .\src\containers.sln -r "linux-x64"
