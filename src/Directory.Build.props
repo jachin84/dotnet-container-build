@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<!-- 
+    * This file is automatically imported by each project that is built in this repository 
+    * This file is imported roughly at the start of each csproj. 
+    -->
+
+	<!-- Common Solution Properties -->
+	<PropertyGroup>
+		<RepoRoot>
+			$([System.IO.Path]::GetDirectoryName($([MSBuild]::GetPathOfFileAbove('global.json','$(MSBuildThisFileDirectory)'))))
+		</RepoRoot>
+		<BaseArtifactsPath>$(RepoRoot)\artifacts</BaseArtifactsPath>
+	</PropertyGroup>
+
+	<!-- Detect if this is a CI Build -->
+	<PropertyGroup>
+		<CIBuild Condition="'$(CIBuild)' == '' And '$(GITHUB_ACTIONS)' == 'true'">true</CIBuild>
+		<CIBuild Condition="'$(CIBuild)' == '' And '$(TEAMCITY_PROJECT_NAME)' != ''">true</CIBuild>
+		<CIBuild Condition="'$(CIBuild)' == '' And '$(SYSTEM_TEAMPROJECT)' != ''">true</CIBuild>
+		<CIBuild Condition="'$(CIBuild)' == ''">false</CIBuild>
+	</PropertyGroup>
+</Project>
