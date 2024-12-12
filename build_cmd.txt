@@ -3,7 +3,7 @@
 Get-ChildItem -Recurse -Include artifacts,Bin,Obj,*.binlog | Remove-Item -Force -Recurse
 
 # Restore
-dotnet restore .\src\containers.sln -r "linux-x64" -p:Configuration="Release" --artifacts-path .\src\artifacts -bl:restore.binlog
+dotnet restore .\src\containers.sln -p:Configuration="Release" --artifacts-path .\src\artifacts -bl:restore.binlog
 
 # Build
 dotnet build .\src\containers.sln -c Release --no-restore --artifacts-path .\src\artifacts -bl:build.binlog
