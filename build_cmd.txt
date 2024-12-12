@@ -1,6 +1,15 @@
 
 #cleanup bin/obj
-Get-ChildItem -Recurse -Include Bin,Obj | Remove-Item -Force -Recurse
+Get-ChildItem -Recurse -Include artifacts,Bin,Obj,*.binlog | Remove-Item -Force -Recurse
 
 # Restore
-dotnet restore .\src\containers.sln -r "linux-x64"
+dotnet restore .\src\containers.sln -r "linux-x64" -p:Configuration="Release" --artifacts-path .\src\artifacts -bl:restore.binlog
+
+# Build
+dotnet build .\src\containers.sln -c Release --no-restore --artifacts-path .\src\artifacts -bl:build.binlog
+
+# Test
+dotnet test .\src\containers.sln -c Release --no-restore --no-build --artifacts-path .\src\artifacts --logger trx --results-directory .\src\artifacts\TestResults --collect:"XPlat Code Coverage" -bl:test.binlog -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura 
+
+#publish 
+dotnet build .\src\containers.sln -c Release -r "linux-x64" --no-restore -t:Containerize --artifacts-path .\src\artifacts  -bl:publish.binlog

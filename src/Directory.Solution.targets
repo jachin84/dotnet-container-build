@@ -10,7 +10,7 @@
              and runtimes/apphosts/etc that are required -->
         <MSBuild 
             Projects="@(App)"
-            Properties="Configuration=Release;"
+            Properties="Configuration=$(Configuration);"
             Targets="Restore"
              />
 
@@ -19,7 +19,7 @@
              hack to keep behavior with the CLI publish command. -->
         <MSBuild 
             Projects="@(App)"
-            Properties="Configuration=Release;_IsPublishing=true"
+            Properties="Configuration=$(Configuration);_IsPublishing=true"
             Targets="Publish;PublishContainer"
             BuildInParallel="true"
              />
